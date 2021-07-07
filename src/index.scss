@@ -1,0 +1,86 @@
+.app-main-component {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+  max-width: 450px;
+  min-height: 300px;
+}
+
+.app-main-component-body {
+  padding: 1.5rem;
+}
+
+.app-main-component-tab-switcher-wrapper {
+  text-align: center;
+}
+
+.app-page-description {
+  margin: 1.5rem 0;
+}
+
+.app-estimated-life-span-wrapper {
+  margin: 1.5rem 0;
+}
+
+.app-dob-flex-wrapper {
+  display: flex;
+  margin: 1.5rem 0;
+
+  & > *:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+}
+
+.app-dob-shifted-label > label:first-of-type {
+  position: relative;
+  left: -6px;
+}
+
+.app-go-button-wrapper {
+  text-align: center;
+}
+
+.app-view-widget {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 650px;
+  width: 100%;
+
+  min-height: 180px;
+}
+
+.blinking {
+  animation: Blinking 2s infinite;
+}
+
+@keyframes Blinking {
+  0% {
+    opacity: 0;
+    color: red;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    color: white;
+  }
+}
+
+.app-footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-top-left-radius: 0.25rem;
+}
