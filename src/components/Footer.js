@@ -6,7 +6,8 @@ export default function Footer() {
     <div className='app-footer'>
       <Button
         component='a'
-        to='https://github.com/MichaelXF/age-illustration'
+        href='https://github.com/MichaelXF/age-illustration'
+        target='_blank'
         style={{ marginLeft: "auto" }}
         color='gray'
         size='xs'
