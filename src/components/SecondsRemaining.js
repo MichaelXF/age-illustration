@@ -54,7 +54,7 @@ export default function SecondsRemaining({ onSubmit }) {
           Seconds Remaining
         </Text>
         <Text color='gray'>
-          Enter your date of a birth and view how many seconds how have
+          Enter your date of a birth and view how many seconds you have
           remaining.
         </Text>
       </div>
