@@ -1,7 +1,18 @@
 import { Heading, Text, Menu, MenuItem, Button } from "@mantine/core";
+import { useLocalStorageValue } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaArrowRight } from "react-icons/fa";
 import { numberWithCommas } from "../utils";
+
+const timeArray = [
+  ["Seconds", 1000],
+  ["Minutes", 1000 * 60],
+  ["Hours", 1000 * 60 * 60],
+  ["Days", 1000 * 60 * 60 * 24],
+  ["Weeks", 1000 * 60 * 60 * 24 * 7],
+  ["Months", 1000 * 60 * 60 * 24 * 30],
+  ["Years", 1000 * 60 * 60 * 24 * 365],
+];
 
 export default function ViewWidget({ data, type, onBackButton }) {
   var h1 = useRef();
@@ -10,8 +21,13 @@ export default function ViewWidget({ data, type, onBackButton }) {
   var date =
     DOB && DOB[0] ? new Date(DOB[0] + " " + DOB[1] + " " + DOB[2]) : null;
 
-  var [length, setLength] = useState("Seconds");
-  var [lengthInMs, setLengthInMs] = useState(1000);
+  var [length, setLength] = useLocalStorageValue({
+    key: "LENGTH",
+    defaultValue: "Seconds",
+  });
+  var [lengthInMs, setLengthInMs] = useState(
+    timeArray.find((x) => x[0] == length)?.[1] || 1000
+  );
 
   useEffect(() => {
     var cancelled = false;
@@ -122,15 +138,7 @@ export default function ViewWidget({ data, type, onBackButton }) {
             transitionDuration={300}
             transitionTimingFunction='ease'
           >
-            {[
-              ["Seconds", 1000],
-              ["Minutes", 1000 * 60],
-              ["Hours", 1000 * 60 * 60],
-              ["Days", 1000 * 60 * 60 * 24],
-              ["Weeks", 1000 * 60 * 60 * 24 * 7],
-              ["Months", 1000 * 60 * 60 * 24 * 30],
-              ["Years", 1000 * 60 * 60 * 24 * 365],
-            ].map(([displayName, inMilliseconds], i) => {
+            {timeArray.map(([displayName, inMilliseconds], i) => {
               return (
                 <MenuItem
                   key={i}

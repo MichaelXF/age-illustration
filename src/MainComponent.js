@@ -1,7 +1,9 @@
 import { Transition } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useLocalStorageValue } from "@mantine/hooks";
+import { useContext, useEffect, useState } from "react";
 import IntroWidget from "./components/IntroWidget";
 import ViewWidget from "./components/ViewWidget";
+import { DOBContext } from "./Context";
 
 export default function MainComponent() {
   /**
@@ -10,7 +12,12 @@ export default function MainComponent() {
   var [onIntroPage, setIntroPage] = useState(false);
   var [onViewPage, setViewPage] = useState(false);
 
-  var [type, setType] = useState(/** "age_as_decimal" | "seconds_remaining" */);
+  var { DOB } = useContext(DOBContext);
+
+  var [type, setType] = useLocalStorageValue({
+    key: "TYPE",
+    defaultValue: "" /** "age_as_decimal" | "seconds_remaining" */,
+  });
   var [data, setData] = useState([
     /** [YEAR, MONTH, DAY], estimatedLifeSpan? */
   ]);
@@ -20,7 +27,11 @@ export default function MainComponent() {
    */
   useEffect(() => {
     setTimeout(() => {
-      setIntroPage(true);
+      if (type && type !== "null" && DOB && Array.isArray(DOB)) {
+        onSubmit(type, DOB.slice(0, 3), 78);
+      } else {
+        setIntroPage(true);
+      }
     }, 200);
   }, []);
 
@@ -36,9 +47,19 @@ export default function MainComponent() {
   function onBackButton() {
     setViewPage(false);
 
+    /**
+     * show intro widget after view widget is hidden
+     */
     setTimeout(() => {
       setIntroPage(true);
     }, 700);
+
+    /**
+     * reset "type" in the local storage
+     */
+    setTimeout(() => {
+      setType("");
+    }, 900);
   }
 
   return (
